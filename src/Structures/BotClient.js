@@ -1,32 +1,26 @@
-const { Client, Collection, Intents } = require("discord.js");
+const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const Util = require("./Util.js");
 
 module.exports = class BotClient extends Client {
   constructor(options = {}) {
     super({
-      disableMentions: ["everyone"],
+      allowedMentions: { parse: ['users', 'roles'], repliedUser: true },
       intents: [
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.GuildMessageReactions,
+        GatewayIntentBits.MessageContent
+        // أضف أي نوايا (Intents) أخرى مطلوبة هنا
       ],
-      allowedMentions: {
-        repliedUser: false,
-      },
     });
 
     this.validate(options);
 
     this.commands = new Collection();
-
     this.slashcommands = new Collection();
-
     this.aliases = new Collection();
-
     this.slashaliases = new Collection();
-
     this.events = new Collection();
-
     this.utils = new Util(this);
   }
 
@@ -55,6 +49,6 @@ module.exports = class BotClient extends Client {
     this.utils.loadCommands();
     this.utils.loadSlashCommands();
     this.utils.loadEvents();
-    super.login(token);
+    await super.login(token);
   }
 };

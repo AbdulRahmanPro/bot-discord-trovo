@@ -12,7 +12,9 @@
     "eslint-config-tesseract": "^0.0.2"
   },
   "dependencies": {
-    "discord.js": "^13.0.0-dev.4d53d0f.1626566655",
+    "axios": "^1.6.7",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.1",
     "glob": "^7.1.6",
     "path": "^0.12.7",
     "util": "^0.12.3"
